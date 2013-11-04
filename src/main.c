@@ -32,7 +32,13 @@ int main(int argc, char **argv) {
   }
 
   rf = fopen(argv[1], "r");
+  if (!strstr(fgets(line,256,rf), "<list>")) {
+    fprintf(stderr, "INVALID INPUt FILE\n");
+    destroyTree(trie);
+    exit(1);
+  }
 
+  rewind(rf);
   while (fgets(line, 256, rf)) {
     switch (step) {
       /* Ready for an opening <list> */

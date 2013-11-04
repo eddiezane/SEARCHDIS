@@ -106,7 +106,7 @@ int main(int argc, char **argv) {
     }
 
     free(search);
-    printf("Next query? 'q' to exit\n");
+    printf("Next query? ('q' to exit):  ");
   }
 
 
@@ -116,9 +116,3 @@ int main(int argc, char **argv) {
 
   return 0;
 }
-
-
-
-
-
-

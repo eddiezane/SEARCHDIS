@@ -7,5 +7,6 @@ lnode getFiles(char *, tnode);
 int sa(char *, tnode);
 int so(char *, tnode);
 void menu();
+int goodstuff(char *);
 
 #endif

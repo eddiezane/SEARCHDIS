@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "search.h"
 #include "index.h"
@@ -13,13 +14,27 @@ void menu() {
   printf("'sa <term>' to search for all that exists\n");
 }
 
+int goodstuff(char *s) {
+  for(; *s; ++s) {
+    if (!isalpha(*s) && !isdigit(*s))
+      return 0;
+  }
+
+  return 1;
+}
+
 /* checks to see if word is in the tree */
 lnode getFiles(char *word, tnode root) {
   int charcode;
-  lowerString(word);
 
   if (root == NULL || word == NULL)
     return 0;
+
+
+  if (!goodstuff(word))
+    return NULL;
+
+  lowerString(word);
 
   if (strcmp(word, "") == 0) {
     if (root->count > 0)
@@ -96,23 +111,20 @@ int sa(char *str, tnode root) {
   }
 
 
-  /* Means we got no matches */
-  if (t->files == NULL) {
-    printf("No matches found.\n");
-    destroyTree(t);
-    return 1;
-  }
 
   /* prints all the filenames */
   for (ptr = t->files; ptr != NULL && ptr->count != count; ptr = ptr->next);
-  printf("%s", ptr->filename);
   if (ptr != NULL) {
+    printf("%s", ptr->filename);
     for (ptr = ptr->next; ptr != NULL; ptr = ptr->next) {
       if(ptr->count == count)
         printf(", %s", ptr->filename);
     }
+    printf("\n");
   }
-  printf("\n");
+  else {
+    printf("No matches found\n");
+  }
 
   destroyTree(t);
   return 0;

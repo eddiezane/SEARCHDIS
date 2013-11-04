@@ -140,7 +140,7 @@ void pt(tnode root, char *buff, FILE *wf) {
 
   if (root->count > 0) {
     fprintf(wf, "<list> %s\n\n", buff);
-    for (p = root->files; p->next != NULL; p = p->next)
+    for (p = root->files; p != NULL; p = p->next)
       fprintf(wf, "%s %d ", p->filename, p->count);
     fprintf(wf, "\n\n</list>\n\n");
   }
@@ -164,8 +164,9 @@ void printTree(tnode root, FILE *wf) {
 
 void hangOrnaments(FILE *fp, tnode trie, char *filename) {
   char *buff = calloc(1, 256);
-  while (fscanf(fp, "%255[a-zA-Z0-9]", buff) == 1) {
-    addToTree(buff, trie, filename);
+  while (fscanf(fp, "%255[a-zA-Z0-9]", buff) != EOF) {
+    if (strcmp("", buff) != 0)
+      addToTree(buff, trie, filename);
     fscanf(fp, "%255[^a-zA-Z0-9]", buff);
   }
   free(buff);

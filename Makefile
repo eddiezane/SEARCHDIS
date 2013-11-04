@@ -11,8 +11,13 @@ search:
 index:
 	$(CC) $(CFLAGS) src/index.c src/indexer.c -o index
 
-debug:
-	$(CC) -g $(CFILES)  $(CFLAGS) -o search
+searchdebug:
+	$(CC) -g $(CFILES) $(CFLAGS) -o search
+
+indexdebug:
+	$(CC) -g $(CFLAGS) src/index.c src/indexer.c -o index
+
+debug: indexdebug searchdebug
 
 clean:
 	rm search index

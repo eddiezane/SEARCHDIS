@@ -1,6 +1,7 @@
 #ifndef INDEX_H
 #define INDEX_H
 
+#include <ftw.h>
 /*
  * List node
  */
